@@ -1,5 +1,99 @@
 <!doctype html>
-<html>
-  <head><meta charset="utf-8"><title>Hello</title></head>
-  <body><h1>Hello, world!</h1></body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daeyoung Jeong</title>
+  <style>
+    :root { --max: 980px; --fg: #111; --muted:#666; --bg:#fff; --accent:#0b57d0; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--fg); background:var(--bg); }
+    header { border-bottom:1px solid #eee; }
+    .wrap { max-width:var(--max); margin:0 auto; padding:24px; }
+    .brand { display:flex; align-items:center; gap:16px; }
+    .brand img { width:84px; height:84px; border-radius:50%; object-fit:cover; }
+    .brand h1 { margin:0; font-size:28px; }
+    .brand p { margin:4px 0 0; color:var(--muted); }
+    main { display:grid; grid-template-columns: 240px 1fr; gap:24px; }
+    nav { position:sticky; top:16px; align-self:start; }
+    nav a { display:block; padding:8px 10px; border-radius:8px; text-decoration:none; color:var(--fg); }
+    nav a:hover, nav a:focus { background:#f5f7fb; }
+    section { padding-top:8px; }
+    section h2 { margin:0 0 8px; font-size:22px; }
+    .card { border:1px solid #eee; border-radius:12px; padding:16px; margin-bottom:16px; }
+    ul { margin:8px 0 0 20px; }
+    li { margin:6px 0; }
+    a { color:var(--accent); }
+    footer { border-top:1px solid #eee; margin-top:24px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap brand">
+      <!-- Optional headshot -->
+      <!-- <img src="headshot.jpg" alt="Profile photo" /> -->
+      <div>
+        <h1>Daeyoung Jeong</h1>
+        <p>School of Economics, Yonsei University • email@example.com</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div>
+        <section id="about" class="card">
+          <h2>About</h2>
+          <p>Short bio goes here. Add your position, interests, and a one-liner about your current projects.</p>
+        </section>
+
+        <section id="research" class="card">
+          <h2>Research</h2>
+          <ul>
+            <li><strong>Project A:</strong> one-sentence summary and a link to a PDF or preprint.</li>
+            <li><strong>Project B:</strong> one-sentence summary and a link to a code repo.</li>
+          </ul>
+        </section>
+
+        <section id="publications" class="card">
+          <h2>Selected Publications</h2>
+          <ul>
+            <li>Author(s), “Title,” <em>Journal</em>, year. <a href="#">PDF</a> • <a href="#">DOI</a></li>
+            <li>Author(s), “Title,” <em>Conference</em>, year. <a href="#">PDF</a></li>
+          </ul>
+        </section>
+
+        <section id="teaching" class="card">
+          <h2>Teaching</h2>
+          <ul>
+            <li>Course name, term — brief description or link to syllabus.</li>
+            <li>Course name, term — brief description or link to resources.</li>
+          </ul>
+        </section>
+
+        <section id="contact" class="card">
+          <h2>Contact</h2>
+          <p>Email: <a href="mailto:email@example.com">email@example.com</a><br />
+             Office: Building, Room 000</p>
+        </section>
+
+        <footer class="wrap">
+          <p style="color:#888;font-size:14px;">© <span id="y"></span> Daeyoung Jeong</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
