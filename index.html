@@ -1,99 +1,388 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daeyoung Jeong</title>
-  <style>
-    :root { --max: 980px; --fg: #111; --muted:#666; --bg:#fff; --accent:#0b57d0; }
-    * { box-sizing: border-box; }
-    body { margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--fg); background:var(--bg); }
-    header { border-bottom:1px solid #eee; }
-    .wrap { max-width:var(--max); margin:0 auto; padding:24px; }
-    .brand { display:flex; align-items:center; gap:16px; }
-    .brand img { width:84px; height:84px; border-radius:50%; object-fit:cover; }
-    .brand h1 { margin:0; font-size:28px; }
-    .brand p { margin:4px 0 0; color:var(--muted); }
-    main { display:grid; grid-template-columns: 240px 1fr; gap:24px; }
-    nav { position:sticky; top:16px; align-self:start; }
-    nav a { display:block; padding:8px 10px; border-radius:8px; text-decoration:none; color:var(--fg); }
-    nav a:hover, nav a:focus { background:#f5f7fb; }
-    section { padding-top:8px; }
-    section h2 { margin:0 0 8px; font-size:22px; }
-    .card { border:1px solid #eee; border-radius:12px; padding:16px; margin-bottom:16px; }
-    ul { margin:8px 0 0 20px; }
-    li { margin:6px 0; }
-    a { color:var(--accent); }
-    footer { border-top:1px solid #eee; margin-top:24px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daeyoung Jeong</title>
+<meta name="description" content="Daeyoung Jeong (D.J., 정대영) — Associate Professor, School of Economics, Yonsei University. Game Theory, Mechanism Design, Network Theory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --ink: #1a1d24;
+    --muted: #5d6472;
+    --line: #e6e3dc;
+    --accent: #0b3a7e;       /* Yonsei-ish blue */
+    --accent-soft: #e8eef8;
+    --gold: #b07d2b;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12141a;
+      --surface: #1a1d25;
+      --ink: #e9e7e1;
+      --muted: #a1a6b3;
+      --line: #2b2f3a;
+      --accent: #8fb3ff;
+      --accent-soft: #1f2a42;
+      --gold: #e0b35e;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.65 "Inter", system-ui, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Nav ---------- */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { font-family: "Fraunces", serif; font-weight: 650; font-size: 1.15rem; color: var(--ink); }
+  .brand:hover { text-decoration: none; }
+  .menu { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; overflow-x: auto; }
+  .menu a {
+    display: block; padding: 6px 12px; border-radius: 999px;
+    color: var(--muted); font-size: .92rem; font-weight: 500; white-space: nowrap;
+  }
+  .menu a:hover, .menu a.active { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { display: grid; grid-template-columns: 220px 1fr; gap: 44px; align-items: center; padding: 64px 0 48px; }
+  .photo {
+    width: 220px; height: 260px; border-radius: 18px; object-fit: cover;
+    background: var(--accent-soft); box-shadow: 0 12px 32px rgba(0,0,0,.12);
+  }
+  .photo-fallback {
+    width: 220px; height: 260px; border-radius: 18px; display: none; place-items: center;
+    background: linear-gradient(135deg, var(--accent), #3a6fc4); color: #fff;
+    font: 650 4rem "Fraunces", serif;
+  }
+  h1 { font-family: "Fraunces", serif; font-weight: 650; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0 0 6px; }
+  .aka { color: var(--muted); font-size: 1.05rem; margin: 0 0 18px; }
+  .role { font-size: 1.1rem; margin: 0 0 4px; font-weight: 500; }
+  .role + p { margin: 0 0 20px; color: var(--muted); }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px; font-size: .88rem; font-weight: 500;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .btn.primary { color: #0e1320; } }
+  .btn.primary:hover { opacity: .9; color: #fff; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 36px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: "Fraunces", serif; font-weight: 650; font-size: 1.7rem; margin: 0 0 18px; }
+  h3 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 28px 0 12px; }
+
+  .interests p { max-width: 70ch; margin: 0 0 16px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { padding: 5px 12px; border-radius: 8px; font-size: .88rem; font-weight: 500; background: var(--accent-soft); color: var(--accent); }
+  .tag.app { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+
+  .recent { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .card .k { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+  .card p { margin: 6px 0 0; font-size: .95rem; }
+
+  /* ---------- Publications ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .filters button {
+    font: inherit; font-size: .85rem; cursor: pointer;
+    padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--muted);
+  }
+  .filters button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .pubs { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .pub { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; transition: border-color .15s; }
+  .pub:hover { border-color: var(--accent); }
+  .pub .t { font-weight: 600; }
+  .pub .meta { color: var(--muted); font-size: .92rem; margin-top: 2px; }
+  .pub .meta em { color: var(--ink); }
+  .pub .note { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+  .pub .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .pub .links a { font-size: .8rem; font-weight: 500; padding: 3px 10px; border-radius: 6px; background: var(--accent-soft); }
+  .badge { display: inline-block; font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; background: var(--gold); color: #fff; }
+  .kind { display: inline-block; font-size: .72rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); padding: 1px 7px; border-radius: 6px; margin-right: 6px; }
+  .hidden { display: none; }
+
+  .awards { list-style: none; padding: 0; margin: 0; }
+  .awards li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .awards li:last-child { border-bottom: 0; }
+  .awards .yr { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .92rem; }
+  .awards small { color: var(--muted); display: block; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: .95rem; }
+  dt { color: var(--muted); }
+  dd { margin: 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 56px; text-align: center; color: var(--muted); }
+  blockquote { font-family: "Fraunces", serif; font-size: 1.15rem; font-style: italic; max-width: 620px; margin: 0 auto 8px; color: var(--ink); }
+  footer .src { font-size: .88rem; }
+  footer .sig { margin-top: 24px; font-size: .85rem; }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 36px; text-align: left; }
+    .photo, .photo-fallback { width: 150px; height: 180px; }
+    .two { grid-template-columns: 1fr; }
+    .awards li { grid-template-columns: 1fr; gap: 0; }
+    nav .brand { display: none; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap brand">
-      <!-- Optional headshot -->
-      <!-- <img src="headshot.jpg" alt="Profile photo" /> -->
-      <div>
-        <h1>Daeyoung Jeong</h1>
-        <p>School of Economics, Yonsei University • email@example.com</p>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html">Daeyoung Jeong</a>
+      <!-- Other pages still point to the Google Site. Swap each href to e.g. cv.html once you build that page. -->
+      <ul class="menu">
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="https://sites.google.com/site/daeyoungjeong/cv">CV</a></li>
+        <li><a href="https://sites.google.com/site/daeyoungjeong/research">Research</a></li>
+        <li><a href="https://sites.google.com/site/daeyoungjeong/teaching">Teaching</a></li>
+        <li><a href="https://sites.google.com/site/daeyoungjeong/writings">Writings</a></li>
+        <li><a href="https://sites.google.com/site/daeyoungjeong/other">Other</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== Hero ===== -->
+  <div class="hero">
+    <div>
+      <!-- Save your profile photo as photo.jpg in the repo -->
+      <img class="photo" src="photo.jpg" alt="Daeyoung Jeong"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+      <div class="photo-fallback">DJ</div>
+    </div>
+    <div>
+      <h1>Daeyoung Jeong</h1>
+      <p class="aka">“D.J.” · 정대영</p>
+      <p class="role">Associate Professor, <a href="https://devcms.yonsei.ac.kr/economics_en/index.do">School of Economics</a>, <a href="https://www.yonsei.ac.kr/sites/en_sc/index.do">Yonsei University</a></p>
+      <p>Ph.D. in Economics</p>
+      <div class="btns">
+        <a class="btn primary" href="https://drive.google.com/file/d/1dp0eq5kIVfNGM_8duZViS_j731b3z9Up/view?usp=drive_link">Download CV (PDF)</a>
+        <a class="btn" href="https://scholar.google.com/citations?user=IoQcNUEAAAAJ&hl=en&oi=ao">Google Scholar</a>
+        <a class="btn" href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2737992">SSRN</a>
+        <a class="btn" href="http://orcid.org/0000-0003-1738-3872">ORCID</a>
+        <a class="btn" href="https://www.researchgate.net/profile/Daeyoung_Jeong3">ResearchGate</a>
+        <a class="btn" href="mailto:daeyoung.jeong@yonsei.ac.kr">Email</a>
       </div>
     </div>
-  </header>
-
-  <div class="wrap">
-    <main>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div>
-        <section id="about" class="card">
-          <h2>About</h2>
-          <p>Short bio goes here. Add your position, interests, and a one-liner about your current projects.</p>
-        </section>
-
-        <section id="research" class="card">
-          <h2>Research</h2>
-          <ul>
-            <li><strong>Project A:</strong> one-sentence summary and a link to a PDF or preprint.</li>
-            <li><strong>Project B:</strong> one-sentence summary and a link to a code repo.</li>
-          </ul>
-        </section>
-
-        <section id="publications" class="card">
-          <h2>Selected Publications</h2>
-          <ul>
-            <li>Author(s), “Title,” <em>Journal</em>, year. <a href="#">PDF</a> • <a href="#">DOI</a></li>
-            <li>Author(s), “Title,” <em>Conference</em>, year. <a href="#">PDF</a></li>
-          </ul>
-        </section>
-
-        <section id="teaching" class="card">
-          <h2>Teaching</h2>
-          <ul>
-            <li>Course name, term — brief description or link to syllabus.</li>
-            <li>Course name, term — brief description or link to resources.</li>
-          </ul>
-        </section>
-
-        <section id="contact" class="card">
-          <h2>Contact</h2>
-          <p>Email: <a href="mailto:email@example.com">email@example.com</a><br />
-             Office: Building, Room 000</p>
-        </section>
-
-        <footer class="wrap">
-          <p style="color:#888;font-size:14px;">© <span id="y"></span> Daeyoung Jeong</p>
-        </footer>
-      </div>
-    </main>
   </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <!-- ===== Research interests ===== -->
+  <section class="interests" id="interests">
+    <h2>Research Interests</h2>
+    <p>I consider myself an applied theorist with broad experimental and empirical interests. My research focuses on Game Theory, Mechanism Design Theory and Network Theory, which cover various applications including Information Economics, Political Economy, and Industrial Organization.</p>
+    <div class="tags">
+      <span class="tag">Game Theory</span>
+      <span class="tag">Mechanism Design</span>
+      <span class="tag">Network Theory</span>
+      <span class="tag app">Information Economics</span>
+      <span class="tag app">Political Economy</span>
+      <span class="tag app">Industrial Organization</span>
+    </div>
+  </section>
+
+  <!-- ===== Recent ===== -->
+  <section id="recent">
+    <h2>Recent</h2>
+    <div class="recent">
+      <div class="card"><div class="k">Award · 2026</div><p>Best Paper Award, KSJCS Spring Conference, for “Challenges in Ensuring Transparency in AI-Generated Content.”</p></div>
+      <div class="card"><div class="k">Publication</div><p>“The Impact of Dual-agency Leniency Policy on Cartel Detection,” <em>Asian Journal of Law &amp; Economics</em>.</p></div>
+      <div class="card"><div class="k">Conditionally accepted</div><p>“Making an honest media out of fake news,” <em>Journal of Economic Behavior and Organization</em>.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== Research ===== -->
+  <section id="research">
+    <h2>Research</h2>
+    <div class="filters" role="group" aria-label="Filter by research type">
+      <button class="on" data-f="all">All</button>
+      <button data-f="theory">Theory</button>
+      <button data-f="theory-empirical">Theory + Empirical</button>
+      <button data-f="empirical">Empirical</button>
+      <button data-f="experimental">Experimental</button>
+    </div>
+
+    <h3>Journal Publications</h3>
+    <ul class="pubs">
+      <li class="pub" data-type="theory">
+        <div class="t">The Impact of Dual-agency Leniency Policy on Cartel Detection</div>
+        <div class="meta">with <a href="https://sites.google.com/view/jeongyeolkim">Jeong Yeol Kim</a> · <em>Asian Journal of Law &amp; Economics</em></div>
+        <div class="links"><a href="https://doi.org/10.1515/ajle-2026-0003">Link</a><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6113088">PDF (SSRN)</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Fake News and Political Polarization</div>
+        <div class="meta">with Insoo Park · <em>The Korean Journal of Economics</em>, 32(2), 99–128 (2025)</div>
+        <div class="links"><a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003284157">Link</a><a href="http://dx.doi.org/10.2139/ssrn.4694802">PDF (SSRN)</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Optimal Influence Design in Networks</div>
+        <div class="meta">with <a href="https://sites.google.com/site/euncheolshin00/">Euncheol Shin</a> · <em>Journal of Economic Theory</em>, Vol. 220</div>
+        <div class="links"><a href="https://doi.org/10.1016/j.jet.2024.105877">Link</a><a href="https://drive.google.com/file/d/1UIRC3mUKhXM5oA950uYYNDa2ri1eYAe2/view?usp=sharing">Working Paper</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">On the (Robust) Ex-post Stability of Constitutions</div>
+        <div class="meta">with <a href="https://sites.google.com/site/econsemin/">Semin Kim</a> · <em>Journal of Public Economic Theory</em>, 26, e12707</div>
+        <div class="links"><a href="https://doi.org/10.1111/jpet.12707">Link</a><a href="https://drive.google.com/file/d/1ybtQIf56sa-GdOxrR0iAyVdGKOEQYQiK/view?usp=sharing">Working Paper</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Stable Constitutions</div>
+        <div class="meta">with <a href="https://sites.google.com/site/econsemin/">Semin Kim</a> · <em>Games and Economic Behavior</em>, Vol. 142 (2023), 794–811</div>
+        <div class="links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0899825623001501">Link</a><a href="https://drive.google.com/open?id=19ixQHMnv-Vi0OfjO4FuL7DElZqUeY074">Working Paper</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Job Market Signaling with Imperfect Competition Among Employers</div>
+        <div class="meta"><em>International Journal of Game Theory</em>, Vol. 48 (2019), Issue 4, 1139–1167</div>
+        <div class="links"><a href="https://rdcu.be/bEmI4">Link</a><a href="https://drive.google.com/open?id=15ADkRt3KL_8ip4eNO4s3hpIPFr2o6NC_">Working Paper</a><a href="https://drive.google.com/open?id=1RetbEtlVOtLxdaf7PiiRoq3-As9vxUdU">Online Appendix</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Using Cheap Talk to Polarize or Unify a Group of Decision Makers</div>
+        <div class="meta"><em>Journal of Economic Theory</em>, Vol. 180 (2019), 50–80</div>
+        <div class="links"><a href="https://www.sciencedirect.com/science/article/pii/S0022053118306835">Link</a><a href="https://drive.google.com/open?id=1saWc9K7MFSyJCJHQEqmLw-05XGExr_lw">Working Paper</a><a href="https://ars.els-cdn.com/content/image/1-s2.0-S0022053118306835-mmc1.pdf">Online Appendix</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">A Test for Normality in the Tobit Model</div>
+        <div class="meta">with <a href="http://web.yonsei.ac.kr/jinook/">Jinook Jeong</a> · <em>The Korean Journal of Economics</em>, Vol. 22 (2015), No. 1 (Special Issue), 61–70</div>
+        <div class="links"><a href="https://drive.google.com/open?id=11G5FWiw_Xzpcuryx8PRoy_oX05cqVXwU">Link</a></div>
+      </li>
+      <li class="pub" data-type="theory-empirical">
+        <div class="t">Too Much is Too Bad: The Effect of Media Coverage on the Price Volatility of Cryptocurrencies</div>
+        <div class="meta">with <a href="https://www.kangsanlee.net/">Kangsan Lee</a> · <em>Journal of International Money and Finance</em>, Vol. 133 (2023): 102823</div>
+        <div class="links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0261560623000244">Link</a><a href="https://drive.google.com/file/d/1cELBLPgqmAxHi7OEVK1p3wg4ob6YXcP5/view?usp=share_link">Working Paper</a></div>
+      </li>
+      <li class="pub" data-type="empirical">
+        <div class="t">Fourth Industrial Revolution and Innovative Capacity of South Korea: Comparative Analysis of Major Industrial Nations with US Patent Data, 1976–2015</div>
+        <div class="meta">with <a href="https://sites.google.com/site/jihong33/">Jihong Lee</a> and Hyunkyeong Lim (in Korean) · <em>Economic Analysis</em>, Vol. 24 (2018), No. 3, 37–81</div>
+        <div class="links"><a href="https://www.bok.or.kr/imer/bbs/P0000556/view.do?nttId=10047400&menuNo=500783&pageIndex=1">Link</a></div>
+      </li>
+    </ul>
+
+    <h3>Working Papers</h3>
+    <ul class="pubs">
+      <li class="pub" data-type="theory">
+        <div class="t">Making an honest media out of fake news: How confirmation bias makes persuaders more honest <span class="badge">Cond. Accepted</span></div>
+        <div class="meta">with <a href="https://sites.google.com/view/mchoi/home">Minseo Choi</a> · <em>Journal of Economic Behavior and Organization</em></div>
+        <div class="links"><a href="http://dx.doi.org/10.2139/ssrn.5715482">PDF (SSRN)</a></div>
+      </li>
+      <li class="pub" data-type="experimental">
+        <div class="t">Price Information Sharing and Collusion: An Experiment <span class="badge">R&amp;R</span></div>
+        <div class="meta">with <a href="https://sites.google.com/view/jeongyeolkim">Jeong Yeol Kim</a> · <em>Review of Industrial Organization</em></div>
+        <div class="links"><a href="http://dx.doi.org/10.2139/ssrn.5286659">PDF (SSRN)</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Persuasion under the Influence of Fake News</div>
+        <div class="meta">with <a href="https://sites.google.com/site/sjyeaecon/home">Sangjun Yea</a> · submitted</div>
+        <div class="links"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3296604">PDF (SSRN)</a></div>
+      </li>
+      <li class="pub" data-type="theory">
+        <div class="t">Robust Intervention in Networks</div>
+        <div class="meta">with <a href="https://tlim0213.github.io/">Tongseok Lim</a> and <a href="https://sites.google.com/site/euncheolshin00/">Euncheol Shin</a> · submitted</div>
+        <div class="links"><a href="http://dx.doi.org/10.2139/ssrn.5077382">PDF (SSRN)</a><a href="https://drive.google.com/file/d/17t1wkKvz_aDKKBksBRYodpN-dhPdJj3J/view?usp=drive_link">Online Appendix</a></div>
+      </li>
+      <li class="pub" data-type="empirical">
+        <div class="t">Recession and Resilience: Labor Market Consequences of Starting College in a Bad Economy</div>
+        <div class="meta">with <a href="https://sites.google.com/view/eleanorjchoi">Eleanor Jawon Choi</a>, Chae Lee and Kyuseob Yu · submitted</div>
+        <div class="links"><a href="https://www.iza.org/publications/dp/18219/recession-and-resilience-labor-market-consequences-of-starting-college-in-a-bad-economy">PDF</a></div>
+      </li>
+      <li class="pub" data-type="experimental">
+        <div class="t">Does the Size of the Signal Space Matter?</div>
+        <div class="meta">with <a href="https://sites.google.com/view/hyundamje">Hyundam Je</a> · submitted</div>
+        <div class="note">Formerly circulated as “Signal Space Puzzle: Bigger is (Not Always) Better”</div>
+        <div class="links"><a href="http://dx.doi.org/10.2139/ssrn.5673730">PDF (SSRN)</a></div>
+      </li>
+    </ul>
+
+    <h3>Books</h3>
+    <ul class="pubs">
+      <li class="pub" data-type="book">
+        <div class="t">가짜뉴스와 민주주의 — 팬데믹의 시대에 인포데믹을 고민하다</div>
+        <div class="meta"><em>Fake News and Democracy</em> (in Korean) · 소명출판</div>
+        <div class="links"><a href="https://search.shopping.naver.com/book/catalog/35328758619">Link</a></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Awards ===== -->
+  <section id="awards">
+    <h2>Selected Grants, Fellowships &amp; Awards</h2>
+    <ul class="awards">
+      <li><span class="yr">2026</span><span>Best Paper Award, 2026 Spring Conference of the Korean Society for Journalism and Communication Studies (KSJCS)<small>“Challenges in Ensuring Transparency in AI-Generated Content” [AI 생성물 투명성 확보를 위한 과제]</small></span></li>
+      <li><span class="yr">2021–2023</span><span>National Research Foundation of Korea Research Grant (2021S1A5A8068768)</span></li>
+      <li><span class="yr">2019</span><span>Research Award, POSTECH Division of Humanities and Social Sciences</span></li>
+      <li><span class="yr">2017</span><span>Rookie of the Year, The Bank of Korea Economic Research Institute</span></li>
+      <li><span class="yr">2015–2016</span><span>Dice Dissertation Fellowship, The Ohio State University</span></li>
+      <li><span class="yr">2010–2011</span><span>University Fellowship, The Ohio State University</span></li>
+    </ul>
+  </section>
+
+  <!-- ===== Personal & Contact ===== -->
+  <section id="contact">
+    <h2>Personal &amp; Contact</h2>
+    <div class="two">
+      <div class="card">
+        <dl>
+          <dt>Born</dt><dd>July 1982, Cheongsong-gun, Gyeongsangbuk-do, Republic of Korea</dd>
+          <dt>Nationality</dt><dd>Republic of Korea</dd>
+          <dt>Languages</dt><dd>Korean (native), English (fluent)</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <dl>
+          <dt>Work</dt><dd><a href="mailto:daeyoung.jeong@yonsei.ac.kr">daeyoung.jeong@yonsei.ac.kr</a></dd>
+          <dt>Home</dt><dd><a href="mailto:daeyoung.jeong@gmail.com">daeyoung.jeong@gmail.com</a></dd>
+          <dt>Address</dt><dd>School of Economics, Yonsei University<br>50 Yonsei-Ro, Seodaemun-Gu<br>Seoul 03722, Republic of Korea</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <blockquote>“I believe, rather, in intellectual lucidity and in the superiority of mass movements over the intellect.”</blockquote>
+    <div class="src">— Louis Althusser, <em>The Future Lasts Forever</em></div>
+    <div class="sig">Daeyoung Jeong / D.J. / 정대영</div>
+  </div>
+</footer>
+
+<script>
+  // Research-type filter (books always stay visible)
+  const buttons = document.querySelectorAll('.filters button');
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    const f = b.dataset.f;
+    document.querySelectorAll('#research .pub').forEach(p => {
+      const t = p.dataset.type;
+      p.classList.toggle('hidden', !(f === 'all' || t === f || t === 'book'));
+    });
+  }));
+</script>
 </body>
 </html>
