@@ -28,6 +28,8 @@
     background: var(--bg);
     color: var(--ink);
     font: 16px/1.65 "Inter", system-ui, sans-serif;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -191,3 +193,7 @@
     .columns li { grid-template-columns: 1fr auto; gap: 2px 12px; }
     .columns .date { grid-column: 1 / -1; }
   }
+
+  .person .ko { display: block; margin: 0; font-weight: 500; }
+  .person .en { display: block; margin: 2px 0 10px; color: var(--muted); font-size: .92rem; }
+  .person li .en { margin-bottom: 0; }
