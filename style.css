@@ -197,3 +197,6 @@
   .person .ko { display: block; margin: 0; font-weight: 500; }
   .person .en { display: block; margin: 2px 0 10px; color: var(--muted); font-size: .92rem; }
   .person li .en { margin-bottom: 0; }
+
+  footer blockquote.q2 { margin-top: 26px; }
+  footer .src .tr { font-style: italic; }
